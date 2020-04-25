@@ -1,8 +1,21 @@
-import React, {useState} from 'react';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
 
+function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
+  return (
+    <div
+      className="symptom"
+      style={{ textDecoration: symptom.isCompleted ? "underline" : "" }}
+    >
+      {symptom.text}
 
-const Symptom = ({symptom}) => <div className ="symptom">{symptom.text}</div>
+      <div>
+        <button onClick={() => completeSymptom(index)}>Yes</button>
+        <button onClick={() => removeSymptom(index)}>No</button>
+      </div>
+    </div>
+  );
+}
 
 function SymptomForm({ addSymptom }) {
   const [value, setValue] = useState("");
@@ -26,41 +39,79 @@ function SymptomForm({ addSymptom }) {
   );
 }
 
-
 function App() {
-  const[symptoms, continualSymptoms] = useState([
-    {text: "Symptom: Bloating"},
-    {text: "Symptom: Cough"},
-    {text: "Symptom: Diarrhea"},
-    {text: "Symptom: Dizziness"},
-    {text: "Symptom: Fatigue"},
-    {text: "Symptom: Fever"},
-    {text: "Symptom: Headache"},
-    {text: "Symptom: Muscle Cramp"},
-    {text: "Symptom: Nausea"},
-    {text: "Symptom: Throat Irritation"},
-    {text: "Symptom: Other"},
-  ])   
+  const [symptoms, setSymptoms] = useState([
+    {
+      text: "Bloating",
+      isCompleted: false,
+    },
+    {
+      text: "Cough",
+      isCompleted: false,
+    },
+    {
+      text: "Diarrhea",
+      isCompleted: false,
+    },
+    {
+      text: "Dizziness",
+      isCompleted: false,
+    },
+    {
+      text: "Fatigue",
+      isCompleted: false,
+    },
+    {
+      text: "Fever",
+      isCompleted: false,
+    },
+    {
+      text: "Headache",
+      isCompleted: false,
+    },
+    {
+      text: "Nausea",
+      isCompleted: false,
+    },
+    {
+      text: "Throat Irritation",
+      isCompleted: false,
+    }
+  ]);
 
   const addSymptom = text => {
     const newSymptoms = [...symptoms, { text }];
-    continualSymptoms(newSymptoms);
+    setSymptoms(newSymptoms);
+  };
+
+  const completeSymptom = index => {
+    const newSymptoms = [...symptoms];
+    newSymptoms[index].isCompleted = true;
+    setSymptoms(newSymptoms);
+  };
+
+  const removeSymptom = index => {
+    const newSymptoms = [...symptoms];
+    newSymptoms[index].isCompleted = false;
+    setSymptoms(newSymptoms);
   };
 
   return (
-    <div className = "app">
-      <div className = "symptoms-list">
+    <div className="app">
+      <div className="symptom-list">
         {symptoms.map((symptom, index) => (
           <Symptom
-            key = {index}
-            index = {index}
-            symptom = {symptom}
+            key={index}
+            index={index}
+            symptom={symptom}
+            completeSymptom={completeSymptom}
+            removeSymptom={removeSymptom}
           />
         ))}
+        <SymptomForm addSymptom={addSymptom} />
       </div>
     </div>
-  )
-  
+  );
 }
 
 export default App;
