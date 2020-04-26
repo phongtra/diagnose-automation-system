@@ -143,9 +143,9 @@ function App() {
 }
 
 //Things I NEED to do:
-//finish button (say like submit)
-//printing out new data from Bill
-//original buttons navigating to co-vid + this page
-//Age + gender
+//Gender (drop-down)
+//Array - symptoms with isCompleted = true (could be done with a for for every element in the array)
+//Button for co-vid 19; redirects to inframedical
+//Take in information from Bill and display it
 
 export default App;
