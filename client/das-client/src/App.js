@@ -24,9 +24,7 @@ function Submit({ index }) {
       className="submit"
       //get_from_symptoms()
     >
-      <div>
-        <button onClick>Submit</button>
-      </div>
+      <button onClick>Submit</button>
     </div>
   );
 }
@@ -43,12 +41,11 @@ function SymptomForm({ addSymptom }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Add another Symptom:
-      </label>
+
       <input
         type="text"
-        className="input"
+        className="symptom"
+        placeholder = "Add another symptom"
         value={value}
         onChange={e => setValue(e.target.value)}
       />
