@@ -65,12 +65,10 @@ function AgeForm() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Input your Age: 
-      </label>
       <input
         type="text"
         className="input"
+        placeholder = "Input your age"
         value={value}
         onChange={e => setValue(e.target.value)}
       />
