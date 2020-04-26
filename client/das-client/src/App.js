@@ -53,22 +53,6 @@ function SymptomForm({ addSymptom }) {
   );
 }
 
-
-function AgeForm() {
-  const [value, setValue] = useState("");
-
-  return (
-    <input
-      type="text"
-      className="input"
-      placeholder = "Input your age"
-      value={value}
-      onChange={e => setValue(e.target.value)}
-    />
-    
-  );
-}
-
 function App() {
   const [symptoms, setSymptoms] = useState([
     {
@@ -125,11 +109,19 @@ function App() {
     newSymptoms[index].isCompleted = false;
     setSymptoms(newSymptoms);
   };
+
+  const [age, setAge] = useState("");
   
   return (
     
     <div className="app">
-      <AgeForm/>
+      <input
+        type="text"
+        className="input"
+        placeholder = "Input your age"
+        value={age}
+        onChange={e => setAge(e.target.value)}
+      />
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
           <Symptom
