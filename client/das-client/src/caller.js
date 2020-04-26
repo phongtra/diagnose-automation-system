@@ -32,8 +32,10 @@ var dum = {
 	notes: `For the latest updates on the 2020 coronavirus outbreak, see our news coverage.`
 };
 
+var hostname = "http://localhost:3000/";
+
 var symptoms = [];
-var allSymptoms;
+var allSymptoms = require('./Symptomlist.json');
 var allSymptomNames = [];
 
 var httpReq = new XMLHttpRequest();
@@ -52,21 +54,22 @@ httpReq.onreadystatechange = (e) => {
 		allSymptoms[i].Name = allSymptoms[i].Name.toLowerCase();
 	}
 	
-	obj = {
+// 	obj = {
 	
-		gender: "male",
-		birthYear: 1998,
-		symptoms: [
-			"anxiety",
-			"back pain"
-		]
+// 		gender: "male",
+// 		birthYear: 1998,
+// 		symptoms: [
+// 			"anxiety",
+// 			"back pain"
+// 		]
 
-	};
+// 	};
 
-	get_from_symptoms(obj);
+// 	get_from_symptoms(obj);
+// 
 }
 
-function get_from_symptoms(info) {
+export default function get_from_symptoms(info) {
 	
 	var gender = info.gender.toLowerCase();
 	var birthYear = info.birthYear;

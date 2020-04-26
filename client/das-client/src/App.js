@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import "./App.css"
-import get_from_symptoms from "../../caller"
+import "./App.css";
+import "./caller";
 
 function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
   return (
@@ -42,45 +42,131 @@ function SymptomForm({ addSymptom }) {
   );
 }
 
+var hostname = "http://localhost:3000/";
+
+var symptoms = [];
+var allSymptoms = require('./Symptomlist.json');
+var allSymptomNames = [];
+
+var httpReq = new XMLHttpRequest();
+const url = hostname + "symptoms";
+
+httpReq.open("GET", url);
+httpReq.send();
+
+httpReq.onreadystatechange = (e) => {
+	if (httpReq.readyState != 4 || httpReq.status != 200) {
+		return;
+	}
+	allSymptoms = JSON.parse(httpReq.responseText);
+	
+	for (var i = 0; i < allSymptoms.length; i++) {
+		allSymptoms[i].Name = allSymptoms[i].Name.toLowerCase();
+	}
+	
+// 	obj = {
+	
+// 		gender: "male",
+// 		birthYear: 1998,
+// 		symptoms: [
+// 			"anxiety",
+// 			"back pain"
+// 		]
+
+// 	};
+
+// 	get_from_symptoms(obj);
+// 
+}
+
+function get_from_symptoms(info) {
+	
+	var gender = info.gender;
+	var birthYear = info.birthYear;
+	var symptoms = info.symptoms;
+	
+	for (var i = 0; i < symptoms.length; i++) {
+		symptoms[i] = symptoms[i];
+	}
+	
+	var symptomIDs = [];
+	for (var i = 0; i < allSymptoms.length; i++) {
+		if (symptoms.includes(allSymptoms[i].Name)) {
+			symptomIDs.push(allSymptoms[i].ID);
+		}
+	}
+	
+	var res;
+	
+	try {
+		// Request code goes here.
+		var url = hostname + `diagnosis?symptoms=${JSON.stringify(symptomIDs)}&gender=${gender}&birthYear=${birthYear}`;
+		url = encodeURI(url).replace(",", "%2C");
+		
+		console.log(url);
+		
+		httpReq = new XMLHttpRequest();
+		httpReq.open("GET", url);
+		httpReq.send();
+		
+		httpReq.onreadystatechange = (e) => {
+			if (httpReq.readyState != 4 || httpReq.status != 200) {
+				return;
+			}
+			
+			res = JSON.parse(httpReq.responseText);
+			console.log(res);
+			
+			// Send it to the UI.
+		}
+	
+	} catch(error) {
+		console.log(error);
+		return 500;
+	}
+	
+	return 200;
+};
+
 function App() {
   const [birthYear, setBirthYear] = useState("");
   const [gender, setGender] = useState("");
 
   const [symptoms, setSymptoms] = useState([
     {
-      text: "Bloating",
+      text: "bloating",
       isCompleted: false,
     },
     {
-      text: "Cough",
+      text: "cough",
       isCompleted: false,
     },
     {
-      text: "Diarrhea",
+      text: "diarrhea",
       isCompleted: false,
     },
     {
-      text: "Dizziness",
+      text: "dizziness",
       isCompleted: false,
     },
     {
-      text: "Fatigue",
+      text: "fatigue",
       isCompleted: false,
     },
     {
-      text: "Fever",
+      text: "fever",
       isCompleted: false,
     },
     {
-      text: "Headache",
+      text: "headache",
       isCompleted: false,
     },
     {
-      text: "Nausea",
+      text: "nausea",
       isCompleted: false,
     },
     {
-      text: "Throat Irritation",
+      text: "throat irritation",
       isCompleted: false,
     },
   ]); 
@@ -114,9 +200,9 @@ function App() {
         onChange={e => {setBirthYear(e.target.value)}}
       />
       <select id = "gender" value = {gender} onChange={e => {setGender(e.target.value)}}> 
-        <option value = "Not Chosen">Choose your gender</option>
-        <option value = "Male">Male</option>
-        <option value = "Female">Female</option>
+        <option value = "not chosen">Choose your gender</option>
+        <option value = "male">Male</option>
+        <option value = "female">Female</option>
       </select>
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
@@ -134,8 +220,8 @@ function App() {
         
         <div className="submit">
           <button onClick={() => {
-            var mySymptoms = symptoms.filter(curr => curr.isCompleted).map(curr => curr.text);
-            get_from_symptoms(birthYear, gender, mySymptoms)
+            symptoms.filter(curr => curr.isCompleted).map(curr => curr.text);
+            get_from_symptoms({gender, birthYear, symptoms});
           }
           }>Submit</button>
         </div>
