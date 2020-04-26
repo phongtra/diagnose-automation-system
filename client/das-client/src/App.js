@@ -22,7 +22,7 @@ function Submit({ index }) {
   return (
     <div
       className="submit"
-      //get_from_symptoms()
+      //get_from_symptoms(age)
     >
       <button onClick>Submit</button>
     </div>
@@ -111,7 +111,7 @@ function App() {
   };
 
   const [age, setAge] = useState("");
-  
+
   return (
     
     <div className="app">
@@ -120,7 +120,7 @@ function App() {
         className="input"
         placeholder = "Input your age"
         value={age}
-        onChange={e => setAge(e.target.value)}
+        onChange={e => { console.log(e.target.value); setAge(e.target.value)}}
       />
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
