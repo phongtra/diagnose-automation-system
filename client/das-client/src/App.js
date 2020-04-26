@@ -123,11 +123,10 @@ function App() {
         value={age}
         onChange={e => { console.log(e.target.value); setAge(e.target.value)}}
       />
-      <select id = "gender"> 
+      <select id = "gender" value = {gender} onChange={e => { console.log(e.target.value); setGender(e.target.value)}}> 
         <option value = "Not Chosen">Choose your gender</option>
         <option value = "Male">Male</option>
         <option value = "Female">Female</option>
-
       </select>
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
