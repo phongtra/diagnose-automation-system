@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "./App.css"
-
+import get_from_symptoms from "../../caller"
 
 function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
   return (
@@ -43,7 +43,7 @@ function SymptomForm({ addSymptom }) {
 }
 
 function App() {
-  const [age, setAge] = useState("");
+  const [birthYear, setBirthYear] = useState("");
   const [gender, setGender] = useState("");
 
   const [symptoms, setSymptoms] = useState([
@@ -109,9 +109,9 @@ function App() {
       <input
         type="number"
         className="input"
-        placeholder = "Enter your age"
-        value={age}
-        onChange={e => {setAge(e.target.value)}}
+        placeholder = "Enter your birth year"
+        value={birthYear}
+        onChange={e => {setBirthYear(e.target.value)}}
       />
       <select id = "gender" value = {gender} onChange={e => {setGender(e.target.value)}}> 
         <option value = "Not Chosen">Choose your gender</option>
@@ -135,7 +135,7 @@ function App() {
         <div className="submit">
           <button onClick={() => {
             var mySymptoms = symptoms.filter(curr => curr.isCompleted).map(curr => curr.text);
-            //get_from_symptom(age, gender, mySymptoms)
+            get_from_symptoms(birthYear, gender, mySymptoms)
           }
           }>Submit</button>
         </div>
