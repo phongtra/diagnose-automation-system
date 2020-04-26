@@ -64,15 +64,13 @@ function AgeForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        className="input"
-        placeholder = "Input your age"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-    </form>
+    <input
+      type="text"
+      className="input"
+      placeholder = "Input your age"
+      value={value}
+      onChange={e => setValue(e.target.value)}
+    />
     
   );
 }
