@@ -1,3 +1,8 @@
+*{
+  font-family: Verdana, sans-serif;
+  font-size: 12 px;
+}
+
 .app {
   background: #ff9999;
   padding: 30px;

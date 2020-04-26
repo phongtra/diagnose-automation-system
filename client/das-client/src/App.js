@@ -44,7 +44,7 @@ function SymptomForm({ addSymptom }) {
 
       <input
         type="text"
-        className="symptom"
+        className="input"
         placeholder = "Add another symptom"
         value={value}
         onChange={e => setValue(e.target.value)}
@@ -119,7 +119,7 @@ function App() {
       <input
         type="text"
         className="input"
-        placeholder = "Input your age"
+        placeholder = "Enter your age"
         value={age}
         onChange={e => { console.log(e.target.value); setAge(e.target.value)}}
       />
@@ -150,7 +150,6 @@ function App() {
 }
 
 //Things I NEED to do:
-//Gender (drop-down)
 //Array - symptoms with isCompleted = true (could be done with a for for every element in the array)
 //Button for co-vid 19; redirects to inframedical
 //Take in information from Bill and display it
