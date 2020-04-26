@@ -8,9 +8,9 @@ const router = Router();
 
 interface DiagnosisRequestWithQuery extends Request {
   query: {
-    evidence: Any;
+    evidence: any;
     sex: string;
-    age: Any;
+    age: any;
   };
 }
 

@@ -13,22 +13,22 @@ const infermAPI = axios.create({
 });
 
 export default {
-  async getDiagnosisFromInfermedica(symptoms: Any, gender: string, age: Any) {                                
+  async getDiagnosisFromInfermedica(symptoms: any, gender: string, age: any) {                                
     return await infermAPI.post('/diagnosis', {
       data: { 
-	    App-Key: Key, 
-		App-Id: Id, 
+	    'App-Key': Key, 
+		'App-Id': Id, 
 		evidence: symptoms, 
 		sex: gender, 
 		age
 	  }
     });
   },
-  async getTriageFromInfermedica(symptoms: Any, gender: string, age: Any) {
+  async getTriageFromInfermedica(symptoms: any, gender: string, age: any) {
     return await infermAPI.post('/triage', {
       data: {
-        App-Key: Key,
-		App-Id: Id,
+        'App-Key': Key,
+		'App-Id': Id,
         evidence: symptoms,
         sex: gender,
         age
