@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import "./App.css";
+import "./App.css"
+
 
 function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
   return (
@@ -17,6 +18,19 @@ function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
   );
 }
 
+function Submit({ index }) {
+  return (
+    <div
+      className="submit"
+      //get_from_symptoms()
+    >
+      <div>
+        <button onClick>Submit</button>
+      </div>
+    </div>
+  );
+}
+
 function SymptomForm({ addSymptom }) {
   const [value, setValue] = useState("");
 
@@ -29,6 +43,34 @@ function SymptomForm({ addSymptom }) {
 
   return (
     <form onSubmit={handleSubmit}>
+      <label>
+        Add another Symptom:
+      </label>
+      <input
+        type="text"
+        className="input"
+        value={value}
+        onChange={e => setValue(e.target.value)}
+      />
+    </form>
+  );
+}
+
+
+function AgeForm() {
+  const [value, setValue] = useState("");
+
+  const handleSubmit = e => {
+    e.preventDefault();
+    if (!value) return;
+    setValue("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <label>
+        Input your Age: 
+      </label>
       <input
         type="text"
         className="input"
@@ -76,8 +118,8 @@ function App() {
     {
       text: "Throat Irritation",
       isCompleted: false,
-    }
-  ]);
+    },
+  ]); 
 
   const addSymptom = text => {
     const newSymptoms = [...symptoms, { text }];
@@ -95,8 +137,8 @@ function App() {
     newSymptoms[index].isCompleted = false;
     setSymptoms(newSymptoms);
   };
-
   return (
+      
     <div className="app">
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
@@ -105,13 +147,23 @@ function App() {
             index={index}
             symptom={symptom}
             completeSymptom={completeSymptom}
+
             removeSymptom={removeSymptom}
           />
         ))}
+
         <SymptomForm addSymptom={addSymptom} />
+        
+        <Submit/>
       </div>
     </div>
   );
 }
+
+//Things I NEED to do:
+//finish button (say like submit)
+//printing out new data from Bill
+//original buttons navigating to co-vid + this page
+//Age + gender
 
 export default App;
