@@ -6,4 +6,4 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var http_1 = __importDefault(require("http"));
 var app_1 = __importDefault(require("./app"));
 var server = http_1.default.createServer(app_1.default);
-server.listen(3000);
+server.listen(process.env.NODE_ENV || 3000);
