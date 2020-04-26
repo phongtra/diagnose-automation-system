@@ -18,19 +18,6 @@ function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
   );
 }
 
-function Submit({ index }) {
-  return (
-    <div
-      className="submit"
-      //get_from_symptoms()
-    >
-      <div>
-        <button onClick>Submit</button>
-      </div>
-    </div>
-  );
-}
-
 function SymptomForm({ addSymptom }) {
   const [value, setValue] = useState("");
 
@@ -43,37 +30,11 @@ function SymptomForm({ addSymptom }) {
 
   return (
     <form onSubmit={handleSubmit}>
-      <label>
-        Add another Symptom:
-      </label>
+
       <input
         type="text"
         className="input"
-        value={value}
-        onChange={e => setValue(e.target.value)}
-      />
-    </form>
-  );
-}
-
-
-function AgeForm() {
-  const [value, setValue] = useState("");
-
-  const handleSubmit = e => {
-    e.preventDefault();
-    if (!value) return;
-    setValue("");
-  };
-
-  return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Input your Age: 
-      </label>
-      <input
-        type="text"
-        className="input"
+        placeholder = "Add another symptom"
         value={value}
         onChange={e => setValue(e.target.value)}
       />
@@ -82,6 +43,9 @@ function AgeForm() {
 }
 
 function App() {
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+
   const [symptoms, setSymptoms] = useState([
     {
       text: "Bloating",
@@ -137,9 +101,23 @@ function App() {
     newSymptoms[index].isCompleted = false;
     setSymptoms(newSymptoms);
   };
+
+
   return (
-      
-    <div className="app">
+    
+    <div className = "app">
+      <input
+        type="number"
+        className="input"
+        placeholder = "Enter your age"
+        value={age}
+        onChange={e => {setAge(e.target.value)}}
+      />
+      <select id = "gender" value = {gender} onChange={e => {setGender(e.target.value)}}> 
+        <option value = "Not Chosen">Choose your gender</option>
+        <option value = "Male">Male</option>
+        <option value = "Female">Female</option>
+      </select>
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
           <Symptom
@@ -154,16 +132,16 @@ function App() {
 
         <SymptomForm addSymptom={addSymptom} />
         
-        <Submit/>
+        <div className="submit">
+          <button onClick={() => {
+            var mySymptoms = symptoms.filter(curr => curr.isCompleted).map(curr => curr.text);
+            //get_from_symptom(age, gender, mySymptoms)
+          }
+          }>Submit</button>
+        </div>
       </div>
     </div>
   );
 }
-
-//Things I NEED to do:
-//finish button (say like submit)
-//printing out new data from Bill
-//original buttons navigating to co-vid + this page
-//Age + gender
 
 export default App;
