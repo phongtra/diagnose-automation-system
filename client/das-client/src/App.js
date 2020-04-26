@@ -22,7 +22,7 @@ function Submit({ index }) {
   return (
     <div
       className="submit"
-      //get_from_symptoms(age)
+      //get_from_symptoms(age, gender, )
     >
       <button onClick>Submit</button>
     </div>
