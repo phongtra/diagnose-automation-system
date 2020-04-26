@@ -18,17 +18,6 @@ function Symptom({ symptom, index, completeSymptom, removeSymptom }) {
   );
 }
 
-function Submit({ index }) {
-  return (
-    <div
-      className="submit"
-      //get_from_symptoms(age, gender, )
-    >
-      <button onClick>Submit</button>
-    </div>
-  );
-}
-
 function SymptomForm({ addSymptom }) {
   const [value, setValue] = useState("");
 
@@ -54,6 +43,9 @@ function SymptomForm({ addSymptom }) {
 }
 
 function App() {
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+
   const [symptoms, setSymptoms] = useState([
     {
       text: "Bloating",
@@ -110,8 +102,6 @@ function App() {
     setSymptoms(newSymptoms);
   };
 
-  const [age, setAge] = useState("");
-  const [gender, setGender] = useState("");
 
   return (
     
@@ -121,9 +111,9 @@ function App() {
         className="input"
         placeholder = "Enter your age"
         value={age}
-        onChange={e => { console.log(e.target.value); setAge(e.target.value)}}
+        onChange={e => {setAge(e.target.value)}}
       />
-      <select id = "gender" value = {gender} onChange={e => { console.log(e.target.value); setGender(e.target.value)}}> 
+      <select id = "gender" value = {gender} onChange={e => {setGender(e.target.value)}}> 
         <option value = "Not Chosen">Choose your gender</option>
         <option value = "Male">Male</option>
         <option value = "Female">Female</option>
@@ -142,7 +132,10 @@ function App() {
 
         <SymptomForm addSymptom={addSymptom} />
         
-        <Submit/>
+        
+        <div className="submit">
+          <button onClick={() => console.log(age, gender) /*get_from_symptom(age, gender)*/}>Submit</button>
+        </div>
       </div>
     </div>
   );
