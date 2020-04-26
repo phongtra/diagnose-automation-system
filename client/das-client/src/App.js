@@ -78,6 +78,7 @@ function AgeForm() {
         onChange={e => setValue(e.target.value)}
       />
     </form>
+    
   );
 }
 
@@ -137,9 +138,11 @@ function App() {
     newSymptoms[index].isCompleted = false;
     setSymptoms(newSymptoms);
   };
+  
   return (
-      
+    
     <div className="app">
+      <AgeForm/>
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
           <Symptom
