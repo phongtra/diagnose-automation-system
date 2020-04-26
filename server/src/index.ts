@@ -3,4 +3,4 @@ import app from './app';
 
 const server = http.createServer(app);
 
-server.listen(3000);
+server.listen(process.env.NODE_ENV || 3000);
