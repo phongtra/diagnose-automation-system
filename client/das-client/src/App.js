@@ -111,6 +111,7 @@ function App() {
   };
 
   const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
 
   return (
     
@@ -122,6 +123,12 @@ function App() {
         value={age}
         onChange={e => { console.log(e.target.value); setAge(e.target.value)}}
       />
+      <select id = "gender"> 
+        <option value = "Not Chosen">Choose your gender</option>
+        <option value = "Male">Male</option>
+        <option value = "Female">Female</option>
+
+      </select>
       <div className="symptom-list">
         {symptoms.map((symptom, index) => (
           <Symptom
