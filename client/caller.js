@@ -2,7 +2,7 @@
 // Let's make this thing.
 
 // Server (proxy) to get the information from.
-var hostname = "localhost:3000";
+var hostname = "http://localhost:3000/";
 
 // Dummy variable for calling the UI function.
 var dum = {
@@ -32,22 +32,85 @@ var dum = {
 	notes: `For the latest updates on the 2020 coronavirus outbreak, see our news coverage.`
 };
 
-var function get_from_symptoms(info) {
+var symptoms = [];
+var allSymptoms;
+var allSymptomNames = [];
+
+var httpReq = new XMLHttpRequest();
+const url = hostname + "symptoms";
+
+httpReq.open("GET", url);
+httpReq.send();
+
+httpReq.onreadystatechange = (e) => {
+	if (httpReq.readyState != 4 || httpReq.status != 200) {
+		return;
+	}
+	allSymptoms = JSON.parse(httpReq.responseText);
 	
-	var gender = info.gender;
+	for (var i = 0; i < allSymptoms.length; i++) {
+		allSymptoms[i].Name = allSymptoms[i].Name.toLowerCase();
+	}
+	
+	obj = {
+	
+		gender: "male",
+		birthYear: 1998,
+		symptoms: [
+			"anxiety",
+			"back pain"
+		]
+
+	};
+
+	get_from_symptoms(obj);
+}
+
+function get_from_symptoms(info) {
+	
+	var gender = info.gender.toLowerCase();
 	var birthYear = info.birthYear;
 	var symptoms = info.symptoms;
 	
+	for (var i = 0; i < symptoms.length; i++) {
+		symptoms[i] = symptoms[i].toLowerCase();
+	}
+	
+	var symptomIDs = [];
+	for (var i = 0; i < allSymptoms.length; i++) {
+		if (symptoms.includes(allSymptoms[i].Name)) {
+			symptomIDs.push(allSymptoms[i].ID);
+		}
+	}
+	
+	var res;
+	
 	try {
 		// Request code goes here.
-		var result = dum;
+		var url = hostname + `diagnosis?symptoms=${JSON.stringify(symptomIDs)}&gender=${gender}&birthYear=${birthYear}`;
+		url = encodeURI(url).replace(",", "%2C");
+		
+		console.log(url);
+		
+		httpReq = new XMLHttpRequest();
+		httpReq.open("GET", url);
+		httpReq.send();
+		
+		httpReq.onreadystatechange = (e) => {
+			if (httpReq.readyState != 4 || httpReq.status != 200) {
+				return;
+			}
+			
+			res = JSON.parse(httpReq.responseText);
+			console.log(res);
+			
+			// Send it to the UI.
+		}
 	
 	} catch(error) {
 		console.log(error);
 		return 500;
 	}
-	
-	update_ui(dum);
 	
 	return 200;
 };
