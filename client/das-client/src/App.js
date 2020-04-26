@@ -133,7 +133,11 @@ function App() {
         <SymptomForm addSymptom={addSymptom} />
         
         <div className="submit">
-          <button onClick={() => console.log(age, gender) /*get_from_symptom(age, gender)*/}>Submit</button>
+          <button onClick={() => {
+            var mySymptoms = symptoms.filter(curr => curr.isCompleted).map(curr => curr.text);
+            //get_from_symptom(age, gender, mySymptoms)
+          }
+          }>Submit</button>
         </div>
       </div>
     </div>
@@ -141,7 +145,6 @@ function App() {
 }
 
 //Things I NEED to do:
-//Array - symptoms with isCompleted = true (could be done with a for for every element in the array)
 //Button for co-vid 19; redirects to inframedical
 //Take in information from Bill and display it
 
