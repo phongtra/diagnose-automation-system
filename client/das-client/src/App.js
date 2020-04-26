@@ -105,9 +105,9 @@ function App() {
 
   return (
     
-    <div className="app">
+    <div className = "app">
       <input
-        type="text"
+        type="number"
         className="input"
         placeholder = "Enter your age"
         value={age}
@@ -132,7 +132,7 @@ function App() {
 
         <SymptomForm addSymptom={addSymptom} />
         
-        
+        <input type = "reset"/>
         <div className="submit">
           <button onClick={() => console.log(age, gender) /*get_from_symptom(age, gender)*/}>Submit</button>
         </div>
